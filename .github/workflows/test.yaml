@@ -43,11 +43,21 @@ jobs:
           PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
           echo "Playwright's Version: $PLAYWRIGHT_VERSION"
           echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
+      - name: Determine Playwright Cache Directory
+        id: determine-cache-dir
+        run: |
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            echo "CACHE_DIR=C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright" >> $GITHUB_ENV
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            echo "CACHE_DIR=~/Library/Caches/ms-playwright" >> $GITHUB_ENV
+          else
+            echo "CACHE_DIR=~/.cache/ms-playwright" >> $GITHUB_ENV
+          fi
       - name: Cache Playwright Browsers
         uses: actions/cache@v3
         id: cache-playwright
         with:
-          path: ~/Library/Caches/ms-playwright
+          path: ${{ env.CACHE_DIR }}
           key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
       - name: Install Playwright Browsers
         if: steps.cache-playwright.outputs.cache-hit != 'true'
