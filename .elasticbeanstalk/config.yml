@@ -1,18 +1,18 @@
 branch-defaults:
-  main:
+  shelger:
     environment: gha-course-staging
     group_suffix: null
 global:
-  application_name: nextjs-starter
+  application_name: github-actions-course-demo
   branch: null
-  default_ec2_keyname: weblogkp
+  default_ec2_keyname: null
   default_platform: Node.js 18 running on 64bit Amazon Linux 2023
   default_region: us-west-2
   include_git_submodules: true
   instance_profile: null
   platform_name: null
   platform_version: null
-  profile: null
+  profile: gha-course
   repository: null
   sc: git
   workspace_type: Application
