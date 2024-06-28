@@ -1,4 +1,5 @@
 name: Deploy
+
 on:
   workflow_dispatch:
     inputs:
@@ -12,18 +13,18 @@ on:
         required: true
         default: "staging"
         type: string
-    workflow_call:
-      inputs:
-        aws-env:
-          description: "AWS Elastic Beanstalk Environment"
-          required: true
-          default: "gha-course-staging"
-          type: string
-        github-env:
-          description: "Github Environment"
-          required: true
-          default: "staging"
-          type: string
+  workflow_call:
+    inputs:
+      aws-env:
+        description: "AWS Elastic Beanstalk Environment"
+        required: true
+        default: "gha-course-staging"
+        type: string
+      github-env:
+        description: "Github Environment"
+        required: true
+        default: "staging"
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.aws-env }}-${{ inputs.github-env }}
